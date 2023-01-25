@@ -158,6 +158,7 @@ p {
 
 .fiveDayNames {
     color: black;
+    margin-bottom: 0;
 }
 
 .fiveDayIcon {
