@@ -1,39 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 body {
-    /* background-color: rgb(175, 126, 220); */
+    background-image: url('../assets/sunnyDayBG.jpg');
+    background-size: cover;
 }
 
 h1 {
+    color: white;
     font-family: 'Inter', sans-serif;
     font-size: 48px;
 }
 
 h2 {
+    color: white;
     font-family: 'Inter', sans-serif;
     font-size: 36px;
 }
 
 h3 {
+    color: white;
     font-family: 'Inter', sans-serif;
     font-size: 24px;
 }
 
 p {
-    font-size: 24px;
+    color: white;
+    font-size: 16px;
 }
 
 
 /* Main Boxes */
 #leftBox {
-    background-color: rgba(0, 0, 255, 0.277);
-    width: 795px;
+    /* background-color: rgba(0, 0, 255, 0.277); */
+    min-width: 795px;
     min-height: 1024px;
 }
 
 #rightBox {
-    background-color: red;
-    width: 645px;
+    background-color: rgba(255, 255, 255, 0.51);;
+    min-width: 645px;
     min-height: 1024px;
 }
 
@@ -50,10 +55,14 @@ p {
     padding-right: 18px;
 }
 
+.favText {
+    color: black;
+}
+
 
 /* Bottom of Left Box */
 #nowBox {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     max-width: 596px;
     margin-top: 663px;
     margin-left: 66px;
@@ -79,10 +88,20 @@ p {
     font-family: 'Inter';
     font-size: 24px;
     line-height: 0;
+    border-radius: 15px;
 }
 
 #cityName {
     margin-top: 15px;
+}
+
+#nowIcon {
+    width: 50px;
+    height: 50px;
+}
+
+#nowWeathText {
+    padding-left: 10px;
 }
 
 .text-righty {
@@ -91,4 +110,121 @@ p {
 
 .dateTime {
     padding-right: 9px;
+}
+
+
+/* Top Right */
+
+#searchBox {
+    margin-top: 35px;
+}
+
+#searchBar {
+    width: 230px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    border-bottom: 1px solid;
+}
+
+#searchBar::placeholder {
+    color: black;
+    opacity: 1; /* Firefox */
+}
+
+#searchBtn {
+    height: 25px;
+    line-height: 0;
+}
+
+
+/* 5-Day Forecast */
+
+#fiveDayTitle {
+    color: black;
+    padding-left: 41px;
+    padding-top: 57px;
+}
+
+#fiveDayBox {
+    padding-top: 20px;
+}
+
+#fiveDayRow {
+    padding-left: 28px;
+    padding-right: 50px;
+}
+
+.fiveDayNames {
+    color: black;
+}
+
+.fiveDayIcon {
+    max-width: 50px;
+}
+
+.highLowTemps {
+    font-size: 12px;
+    color: black;
+}
+
+
+/* Today's Forecast */
+
+#todayTitle {
+    color: black;
+    padding-left: 41px;
+    padding-top: 25px;
+}
+
+#todayRow {
+    margin-top: 25px;
+    padding-left: 37px;
+    padding-right: 37px;
+}
+
+#mornCard {
+    background-color: rgba(177, 17, 181, 0.6);
+    height: 178px;
+    width: 170px;
+    border-radius: 15px;
+}
+
+#noonCard {
+    background-color: rgba(86, 167, 157, 0.6);
+    height: 178px;
+    width: 170px;
+    border-radius: 15px;
+}
+
+#eveCard {
+    background-color: rgba(10, 17, 40, 0.6);
+    height: 178px;
+    width: 170px;
+    border-radius: 15px;
+}
+
+.todaySubTitle {
+    color: white;
+    padding-top: 15px;
+}
+
+.todayWeathBox {
+    /* padding-right: 15px; */
+    margin-right: 25px;
+}
+
+.todayIcons {
+    max-width: 50px;
+    /* margin-right: 15px; */
+}
+
+.todayWeathText {
+    line-height: .9;
+    padding-left: 5px;
+}
+
+.todayTempBoxes {
+    padding-top: 8px;
 }

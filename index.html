@@ -26,8 +26,8 @@
 
                 <h1 id="title">the.weather</h1>
                 <div id="favBox" class="d-flex">
-                    <h3>+</h3>
-                    <h3>Favorites</h3>
+                    <h3 class="favText">+</h3>
+                    <h3 class="favText">Favorites</h3>
                 </div>
 
                 
@@ -46,12 +46,12 @@
                     <h1 id="cityName">Santa Rosa, CA</h1>
                     <div class="row mx-0 g-0">
                         <div class="col-4 d-flex">
-                            <h3>Sun-</h3>
-                            <h3>Sunny</h3>
+                            <img id="nowIcon" src="./assets/sunnyIcon.png" alt="">
+                            <h3 id="nowWeathText">Sunny</h3>
                         </div>
                         <div class="col-8 text-righty">
                             <h3 class="dateTime">2:30pm</h3>
-                            <h3 class="dateTime">January 23, 2023</h3>
+                            <h3 class="dateTime">January 23,2023</h3>
                         </div>
                     </div>
                 </div>
@@ -59,8 +59,93 @@
         </div>
     
         <div id="rightBox" class="container-fluid">
-    
+
+            <div id="searchBox" class="d-flex justify-content-end">
+                <input id="searchBar" class="form-control" type="text" placeholder="search city" aria-label="Search">
+                <button id="searchBtn" class="btn" type="submit">O-</button>
+            </div>
+
+            <h2 id="fiveDayTitle">5 Day Forecast</h2>
+            
+            <div id="fiveDayBox" class="container-fluid g-0">
+                <div id="fiveDayRow" class="row text-center">
+                    
+                    <div class="col">
+                        <p id="day1Name" class="fiveDayNames">Monday</p>
+                        <img id="monIcon" class="fiveDayIcon" src="./assets/sunnyIcon.png" alt="">
+                        <p id="monTemps" class="highLowTemps">H: 102 L: 68</p>
+                    </div>
+                    <div class="col">
+                        <p id="day2Name" class="fiveDayNames">Tuesday</p>
+                        <img id="tueIcon" class="fiveDayIcon" src="./assets/sunnyIcon.png" alt="">
+                        <p id="tueTemps" class="highLowTemps">H: 102 L: 68</p>
+                    </div>
+                    <div class="col">
+                        <p id="day3Name" class="fiveDayNames">Wednesday</p>
+                        <img id="wedIcon" class="fiveDayIcon" src="./assets/sunnyIcon.png" alt="">
+                        <p id="wedTemps" class="highLowTemps">H: 102 L: 68</p>
+                    </div>
+                    <div class="col">
+                        <p id="day4Name" class="fiveDayNames">Thursday</p>
+                        <img id="thuIcon" class="fiveDayIcon" src="./assets/sunnyIcon.png" alt="">
+                        <p id="thuTemps" class="highLowTemps">H: 102 L: 68</p>
+                    </div>
+                    <div class="col">
+                        <p id="day5Name" class="fiveDayNames">Friday</p>
+                        <img id="friIcon" class="fiveDayIcon" src="./assets/sunnyIcon.png" alt="">
+                        <p id="friTemps" class="highLowTemps">H: 102 L: 68</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <h2 id="todayTitle">Today's Forecast</h2>
+
+            <div id="todayRow" class="row text-center">
+                <div id="mornCol" class="col px-0 d-flex justify-content-center">
+                    <div id="mornCard" class="d-flex flex-column align-items-center">
+                        <h3 class="todaySubTitle">Morning</h3>
+                        <div class="todayWeathBox d-flex">
+                            <img src="./assets/sunnyIcon.png" alt="" class="todayIcons">
+                            <p class="todayWeathText">Sunny</p>
+                        </div>
+                        <div class="d-flex todayTempBoxes">
+                            <h1>70</h1>
+                            <p>F</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="noonCol" class="col px-0 d-flex justify-content-center">
+                    <div id="noonCard" class="d-flex flex-column align-items-center">
+                        <h3 class="todaySubTitle">Noon</h3>
+                        <div class="todayWeathBox d-flex ">
+                            <img src="./assets/sunnyIcon.png" alt="" class="todayIcons">
+                            <p class="todayWeathText">Sunny</p>
+                        </div>
+                        <div class="d-flex todayTempBoxes">
+                            <h1>70</h1>
+                            <p>F</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="eveCol" class="col px-0 d-flex justify-content-center">
+                    <div id="eveCard" class="d-flex flex-column align-items-center">
+                        <h3 class="todaySubTitle">Evening</h3>
+                        <div class="todayWeathBox d-flex ">
+                            <img src="./assets/sunnyIcon.png" alt="" class="todayIcons">
+                            <p class="todayWeathText">Sunny</p>
+                        </div>
+                        <div class="d-flex todayTempBoxes">
+                            <h1>70</h1>
+                            <p>F</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
 
     </div>
 
