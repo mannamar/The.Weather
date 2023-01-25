@@ -1,7 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
 body {
-    background-color: rgb(175, 126, 220);
+    /* background-color: rgb(175, 126, 220); */
 }
 
-.nowCont {
-    max-width: 300px;
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+}
+
+p {
+    font-size: 24px;
+}
+
+
+/* Main Boxes */
+#leftBox {
+    background-color: rgba(0, 0, 255, 0.277);
+    width: 795px;
+    min-height: 1024px;
+}
+
+#rightBox {
+    background-color: red;
+    width: 645px;
+    min-height: 1024px;
+}
+
+
+/* Top of Left Box */
+#title {
+    color: #81F499;
+    padding-top: 28px;
+    padding-left: 34px;
+}
+
+#favBox {
+    padding-top: 40px;
+    padding-right: 18px;
+}
+
+
+/* Bottom of Left Box */
+#nowBox {
+    background-color: aquamarine;
+    max-width: 596px;
+    margin-top: 663px;
+    margin-left: 66px;
+}
+
+#nowTemp {
+    font-size: 128px;
+    line-height: .9;
+}
+
+#super {
+    font-size: 24px;
+
+}
+
+#rightNowCol {
+    padding-left: 40px;
+}
+
+#addFavBtn {
+    width: 355px;
+    height: 44px;
+    font-family: 'Inter';
+    font-size: 24px;
+    line-height: 0;
+}
+
+#cityName {
+    margin-top: 15px;
+}
+
+.text-righty {
+    text-align: right;
+}
+
+.dateTime {
+    padding-right: 9px;
 }
