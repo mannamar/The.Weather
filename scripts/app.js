@@ -116,7 +116,7 @@ function SetNowData(data = weatherNowData) {
     nowTemp.innerText = Math.round(data.main.temp);
     nowWeathText.innerText = data.weather[0].main;
 
-    let unixTime = data.dt;
+    let unixTime = data.dt + data.timezone + 28800; // Hacky - fix later
     let dateTime = new Date(unixTime * 1000);
     let time = dateTime.toLocaleTimeString('en-US', {timeStyle: 'short'}).toLowerCase().split(' ').join('');
     let date = dateTime.toLocaleDateString('en-US', {month:"long", day: "numeric", year:"numeric"});
