@@ -1,5 +1,8 @@
 // Imports
 import { prod, dev } from './environment.js';
+import { stateAbbr } from './states.js';
+
+console.log(stateAbbr)
 
 let apiKey = '';
 
@@ -57,9 +60,12 @@ async function GetNowData(latitude = lat, longitude = lon) {
 
 function SetNowData(data = weatherNowData) {
 
-    if (state) {
+    if (stateAbbr[state]) {
+        cityName.innerText = name + ', ' + stateAbbr[state];
+    } else if (state && state.length === 2) {
         cityName.innerText = name + ', ' + state;
-    } else {
+    } 
+    else {
         cityName.innerText = name;
     }
     nowTemp.innerText = Math.round(data.main.temp);
@@ -71,6 +77,9 @@ function SetNowData(data = weatherNowData) {
     let date = dateTime.toLocaleDateString('en-US', {month:"long", day: "numeric", year:"numeric"});
     timeTxt.innerText = time;
     dateTxt.innerText = date;
+    nowIcon.src = `./assets/${data.weather[0].main}.png`;
+    
+
 }
 
 function SetFiveDayData() {
