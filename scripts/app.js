@@ -236,6 +236,27 @@ function CreateElements() {
         let favBtn = document.createElement('button');
         favBtn.textContent = favItem.name;
         favBtn.classList.add('btn', 'btn-primary', 'favItem');
+        favBtn.addEventListener('click', async function() {
+            chosenCityData = favorites[favorites.indexOf(favItem)];
+            console.log(chosenCityData);
+            lat = chosenCityData.lat;
+            lon = chosenCityData.lon;
+            if (chosenCityData.local_names && chosenCityData.local_names.en) {
+                name = chosenCityData.local_names.en;
+            } else {
+                name = chosenCityData.name;
+            }
+            if (chosenCityData.country === 'US' && chosenCityData.state) {
+                state = chosenCityData.state;
+            } else {
+                state = chosenCityData.country;
+            }
+            await GetNowData();
+            SetNowData();
+            await GetFutureData();
+            ParseFutureData();
+            SetFutureData();
+        });
 
         let deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn btn-danger';
