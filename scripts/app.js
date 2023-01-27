@@ -270,7 +270,25 @@ function CreateElements() {
     favList.innerHTML = '';
     favorites.map(favItem => {
         let favBtn = document.createElement('button');
-        favBtn.textContent = favItem.name;
+        let tempName, tempState;
+        console.log(favItem)
+        if (favItem.local_names && favItem.local_names.en) {
+            tempName = favItem.local_names.en;
+        } else {
+            tempName = favItem.name;
+        }
+        if (favItem.country === 'US' && favItem.state) {
+            tempState = favItem.state;
+        } else {
+            tempState = favItem.country;
+        }
+        if (stateAbbr[tempState]) {
+            favBtn.textContent = tempName + ', ' + stateAbbr[tempState];
+        } else {
+            favBtn.textContent = tempName + ', ' + tempState;
+        }
+        // All of the above were copy/pasted from other functions --> room to refactor
+        // favBtn.textContent = tempName + ', ' + tempState;
         favBtn.classList.add('btn', 'btn-primary', 'favItem');
         favBtn.addEventListener('click', async function() {
             chosenCityData = favorites[favorites.indexOf(favItem)];
