@@ -341,6 +341,32 @@ searchBtn.addEventListener('click', async function() {
     SetFutureData();
 });
 
+document.addEventListener('keypress', async function(key) {
+    if (key.key === 'Enter') {
+        let input = searchBar.value;
+        if (input === '') {
+            console.warn('Empty input');
+            return;
+        }
+        searchBar.value = '';
+        console.log('Search input: ' + input);
+        let inputSplit = input.split(',');
+        if (inputSplit.length === 1) {
+            await SearchForLocation(inputSplit[0]);
+        } else {
+            await SearchForLocation(inputSplit[0], inputSplit[1]);
+        }
+        ChooseLocation();
+        console.log({chosenCityData});
+        await GetNowData();
+        SetNowData();
+
+        await GetFutureData();
+        ParseFutureData();
+        SetFutureData();
+    }
+});
+
 addFavBtn.addEventListener('click', function() {
     console.log("Add to fav: " + name);
     saveToLocalStorage(chosenCityData);
