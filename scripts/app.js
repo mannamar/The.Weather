@@ -38,15 +38,33 @@ async function success(position) {
     // console.log(position);
     lat = position.coords.latitude;
     lon = position.coords.longitude;
+    await ReverseGeoLookup();
+    lat = chosenCityData.lat;
+    lon = chosenCityData.lon;
+    SetDisplayNameVariables();
     console.log('Lat: ' + lat)
     console.log('Lon: ' + lon)
     await GetNowData();
     name = weatherNowData.name;
     SetNowData();
+    await GetFutureData();
+    ParseFutureData();
+    SetFutureData();
 }
 
 function error(err) {
     console.warn(err.message);
+}
+
+async function ReverseGeoLookup() {
+    let reverseGeoApi = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`;
+    await fetch(reverseGeoApi).then(
+        response => response.json()
+    ).then(
+        data => {
+            chosenCityData = data[0];
+        }
+    )
 }
 
 // Currently
@@ -106,7 +124,7 @@ function SetNowData(data = weatherNowData) {
 }
 
 async function SearchForLocation(cityName, stateCode = '', countryCode = '', limit = 3) {
-    let geocodingApi = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${apiKey}`;
+    let geocodingApi = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName},${stateCode},${countryCode}&limit=${limit}&appid=${apiKey}`;
     await fetch(geocodingApi).then(
         response => response.json()
     ).then(
@@ -302,6 +320,6 @@ favLink.addEventListener('click', function() {
 
 
 // Call Functions on page load
-// navigator.geolocation.getCurrentPosition(success, error, options);
+navigator.geolocation.getCurrentPosition(success, error, options);
 
 let favorites = getLocalStorage();
