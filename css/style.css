@@ -50,12 +50,25 @@ p {
     padding-left: 34px;
 }
 
+#favLink {
+    text-decoration: none; /* no underline */
+    transition: transform .1s; /* Animation */
+}
+
+#favLink:hover {
+    transform: scale(1.05);
+}
+
 #favBox {
-    padding-top: 40px;
-    padding-right: 18px;
+    margin-top: 40px;
+    margin-right: 18px;
 }
 
 .favText {
+    color: #0A1128;
+}
+
+.favItem {
     color: #0A1128;
 }
 

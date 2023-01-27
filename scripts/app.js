@@ -1,6 +1,7 @@
 // Imports
 import { prod, dev } from './environment.js';
 import { stateAbbr } from './states.js';
+import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "./localStorage.js";
 
 let apiKey = '';
 
@@ -225,6 +226,29 @@ function SetDayFields(dayNum, nameElement, tempsElement, iconElement) {
     SetIcon(iconElement, tempWeath);
 }
 
+// Favorites
+
+function CreateElements() {
+    let favorites = getLocalStorage();
+    favList.innerHTML = '';
+    favorites.map(name => {
+        let p = document.createElement('p');
+        p.textContent = name;
+        p.classList.add('favItem');
+
+        let deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-danger';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.type = 'button';
+        deleteBtn.addEventListener('click', function() {
+            removeFromLocalStorage(name);
+            CreateElements();
+        });
+
+        favList.append(p, deleteBtn);
+    })
+}
+
 // Button event listeners
 searchBtn.addEventListener('click', async function() {
     let input = searchBar.value;
@@ -250,8 +274,17 @@ searchBtn.addEventListener('click', async function() {
     SetFutureData();
 });
 
+addFavBtn.addEventListener('click', function() {
+    console.log("Add to fav: " + name);
+    saveToLocalStorage(name);
+});
 
+favLink.addEventListener('click', function() {
+    CreateElements();
+});
 
 
 // Call Functions on page load
 // navigator.geolocation.getCurrentPosition(success, error, options);
+
+let favorites = getLocalStorage();
