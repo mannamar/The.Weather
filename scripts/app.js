@@ -52,8 +52,22 @@ async function success(position) {
     SetFutureData();
 }
 
-function error(err) {
+async function error(err) {
     console.warn(err.message);
+    lat = 37.9577016;
+    lon = -121.2907796;
+    await ReverseGeoLookup();
+    lat = chosenCityData.lat;
+    lon = chosenCityData.lon;
+    SetDisplayNameVariables();
+    console.log('Lat: ' + lat)
+    console.log('Lon: ' + lon)
+    await GetNowData();
+    name = weatherNowData.name;
+    SetNowData();
+    await GetFutureData();
+    ParseFutureData();
+    SetFutureData();
 }
 
 async function ReverseGeoLookup() {
