@@ -61,6 +61,14 @@ async function GetNowData(latitude = lat, longitude = lon) {
     )
 }
 
+function SetIcon(element, weather) {
+    if (atmosphereTypes.includes(weather)) {
+        element.src = `./assets/Atmosphere.png`;
+    } else {
+        element.src = `./assets/${weather}.png`;
+    }
+}
+
 function SetNowData(data = weatherNowData) {
 
     if (stateAbbr[state]) {
@@ -80,11 +88,12 @@ function SetNowData(data = weatherNowData) {
     let date = dateTime.toLocaleDateString('en-US', {month:"long", day: "numeric", year:"numeric"});
     timeTxt.innerText = time;
     dateTxt.innerText = date;
-    if (atmosphereTypes.includes(data.weather[0].main)) {
-        nowIcon.src = `./assets/Atmosphere.png`;
-    } else {
-        nowIcon.src = `./assets/${data.weather[0].main}.png`;
-    }
+    SetIcon(nowIcon, data.weather[0].main);
+    // if (atmosphereTypes.includes(data.weather[0].main)) {
+    //     nowIcon.src = `./assets/Atmosphere.png`;
+    // } else {
+    //     nowIcon.src = `./assets/${data.weather[0].main}.png`;
+    // }
 
     // Also change BG
     if (data.weather[0].main === 'Rain' || data.weather[0].main === 'Snow' || data.weather[0].main === 'Clouds') {
@@ -140,7 +149,6 @@ async function GetFutureData(latitude = lat, longitude = lon) {
     ).then(
         data => {
             weatherFutureData = data;
-            // console.log(weatherFutureData);
         }
     )
 }
@@ -172,14 +180,52 @@ function ParseFutureData() {
             parsedFutureData[dayOfWeek].all_weath.push(element.weather[0].main);
         }
     }
-    console.log(dayOfWeekOrder);
-    console.log(parsedFutureData);
 }
 
 function SetFutureData() {
-
+    // Today High-Low
+    let highWeath = parsedFutureData[dayOfWeekOrder[0]].max_weath;
+    let lowWeath = parsedFutureData[dayOfWeekOrder[0]].min_weath;
+    todayHighWeath.innerText = highWeath;
+    todayLowWeath.innerText = lowWeath;
+    todayHighTemp.innerText = Math.round(parsedFutureData[dayOfWeekOrder[0]].max);
+    todayLowTemp.innerText = Math.round(parsedFutureData[dayOfWeekOrder[0]].min);
+    SetIcon(todayHighIcon, highWeath);
+    SetIcon(todayLowIcon, lowWeath);
+    // Later today
+    let laterWeath = weatherFutureData.list[1].weather[0].main;
+    todayLaterWeath.innerText = laterWeath;
+    todayLaterTemp.innerText = Math.round(weatherFutureData.list[1].main.temp);
+    SetIcon(todayLaterIcon, laterWeath);
+    // 5-day
+    SetDayFields(0, day1Name, day1Temps, day1Icon);
+    SetDayFields(1, day2Name, day2Temps, day2Icon);
+    SetDayFields(2, day3Name, day3Temps, day3Icon);
+    SetDayFields(3, day4Name, day4Temps, day4Icon);
+    SetDayFields(4, day5Name, day5Temps, day5Icon);
 }
 
+function SetDayFields(dayNum, nameElement, tempsElement, iconElement) {
+    nameElement.innerText = dayOfWeekOrder[dayNum];
+    tempsElement.innerText = `H: ${Math.round(parsedFutureData[dayOfWeekOrder[dayNum]].max)} L: ${Math.round(parsedFutureData[dayOfWeekOrder[dayNum]].min)}`;
+    let tempWeath;
+    if (parsedFutureData[dayOfWeekOrder[dayNum]].all_weath.includes('Snow')) {
+        tempWeath = 'Snow';
+    } else if (parsedFutureData[dayOfWeekOrder[dayNum]].all_weath.includes('Thunderstorm')) {
+        tempWeath = 'Thunderstorm';
+    } else if (parsedFutureData[dayOfWeekOrder[dayNum]].all_weath.includes('Rain')) {
+        tempWeath = 'Rain';
+    } else if (parsedFutureData[dayOfWeekOrder[dayNum]].all_weath.includes('Drizzle')) {
+        tempWeath = 'Drizzle';
+    // } else if (parsedFutureData[dayOfWeekOrder[dayNum]].all_weath.includes('Clouds')) {
+    //     tempWeath = 'Clouds'; // Always ends up cloudy
+    } else {
+        tempWeath = 'Clear';
+    }
+    SetIcon(iconElement, tempWeath);
+}
+
+// Button event listeners
 searchBtn.addEventListener('click', async function() {
     let input = searchBar.value;
     if (input === '') {
@@ -201,6 +247,7 @@ searchBtn.addEventListener('click', async function() {
 
     await GetFutureData();
     ParseFutureData();
+    SetFutureData();
 });
 
 
