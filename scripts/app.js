@@ -80,6 +80,7 @@ function SetNowData(data = weatherNowData) {
     else {
         cityName.innerText = name;
     }
+    // chosenCityData.display_name = cityName.innerText;
     nowTemp.innerText = Math.round(data.main.temp);
     nowWeathText.innerText = data.weather[0].main;
 
@@ -231,21 +232,21 @@ function SetDayFields(dayNum, nameElement, tempsElement, iconElement) {
 function CreateElements() {
     let favorites = getLocalStorage();
     favList.innerHTML = '';
-    favorites.map(name => {
-        let p = document.createElement('p');
-        p.textContent = name;
-        p.classList.add('favItem');
+    favorites.map(favItem => {
+        let favBtn = document.createElement('button');
+        favBtn.textContent = favItem.name;
+        favBtn.classList.add('btn', 'btn-primary', 'favItem');
 
         let deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn btn-danger';
         deleteBtn.textContent = 'Delete';
         deleteBtn.type = 'button';
         deleteBtn.addEventListener('click', function() {
-            removeFromLocalStorage(name);
+            removeFromLocalStorage(favorites.indexOf(favItem));
             CreateElements();
         });
 
-        favList.append(p, deleteBtn);
+        favList.append(favBtn, deleteBtn);
     })
 }
 
@@ -276,7 +277,7 @@ searchBtn.addEventListener('click', async function() {
 
 addFavBtn.addEventListener('click', function() {
     console.log("Add to fav: " + name);
-    saveToLocalStorage(name);
+    saveToLocalStorage(chosenCityData);
 });
 
 favLink.addEventListener('click', function() {

@@ -71,7 +71,9 @@ p {
 }
 
 .favItem {
-    color: #0A1128;
+    /* color: #0A1128; */
+    width: 50%;
+    margin: 15px;
 }
 
 

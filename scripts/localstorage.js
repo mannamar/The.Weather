@@ -1,6 +1,6 @@
 function saveToLocalStorage(city) {
     let favorites = getLocalStorage();
-    if (!favorites.includes(city)) {
+    if (!favorites.some(item => item.lat === city.lat)) {
         favorites.push(city);
     }
     localStorage.setItem('Favorites', JSON.stringify(favorites));
@@ -14,10 +14,11 @@ function getLocalStorage() {
     return JSON.parse(localStorageData);
 }
 
-function removeFromLocalStorage(city) {
+function removeFromLocalStorage(index) {
     let favorites = getLocalStorage();
-    let cityIndex = favorites.indexOf(city);
-    favorites.splice(cityIndex, 1);
+    // let cityIndex = favorites.indexOf(city);
+    console.log(index);
+    favorites.splice(index, 1);
     localStorage.setItem('Favorites', JSON.stringify(favorites));
 }
 
