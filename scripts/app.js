@@ -2,8 +2,6 @@
 import { prod, dev } from './environment.js';
 import { stateAbbr } from './states.js';
 
-console.log(stateAbbr)
-
 let apiKey = '';
 
 if (prod.isLive) {
@@ -17,10 +15,14 @@ let nowTemp = document.getElementById('nowTemp');
 let cityName = document.getElementById('cityName');
 let searchBtn = document.getElementById('searchBtn');
 let searchBar = document.getElementById('searchBar');
+let body = document.getElementById('body');
 
 // Declare JS variables
-let weatherNowData, weatherFutureData, allLocationData, chosenCityData;
+let weatherNowData, allLocationData, chosenCityData, weatherFutureData, parsedFutureData, dayOfWeekOrder;
 let lat, lon, name, state;
+
+let atmosphereTypes = ['Mist', 'Smoke', 'Haze', 'Dust', 'Fog', 'Sand', 'Ash', 'Squall'];
+let fiveDay = {};
 
 
 
@@ -46,6 +48,7 @@ function error(err) {
     console.warn(err.message);
 }
 
+// Currently
 async function GetNowData(latitude = lat, longitude = lon) {
     let weatherNowApi = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
     await fetch(weatherNowApi).then(
@@ -77,13 +80,18 @@ function SetNowData(data = weatherNowData) {
     let date = dateTime.toLocaleDateString('en-US', {month:"long", day: "numeric", year:"numeric"});
     timeTxt.innerText = time;
     dateTxt.innerText = date;
-    nowIcon.src = `./assets/${data.weather[0].main}.png`;
-    
+    if (atmosphereTypes.includes(data.weather[0].main)) {
+        nowIcon.src = `./assets/Atmosphere.png`;
+    } else {
+        nowIcon.src = `./assets/${data.weather[0].main}.png`;
+    }
 
-}
-
-function SetFiveDayData() {
-
+    // Also change BG
+    if (data.weather[0].main === 'Rain' || data.weather[0].main === 'Snow' || data.weather[0].main === 'Clouds') {
+        body.style.backgroundImage = `url('../assets/${data.weather[0].main}BG.jpg')`;
+    } else {
+        body.style.backgroundImage = `url('../assets/ClearBG.jpg')`;
+    }
 }
 
 async function SearchForLocation(cityName, stateCode = '', countryCode = '', limit = 3) {
@@ -123,8 +131,62 @@ function ChooseLocation(data = allLocationData) {
     }
 }
 
+
+// Today/5-Day
+async function GetFutureData(latitude = lat, longitude = lon) {
+    let weatherFutureApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
+    await fetch(weatherFutureApi).then(
+        response => response.json()
+    ).then(
+        data => {
+            weatherFutureData = data;
+            // console.log(weatherFutureData);
+        }
+    )
+}
+
+function ParseFutureData() {
+    parsedFutureData = {};
+    dayOfWeekOrder = [];
+    let list = weatherFutureData.list;
+    for (let element of list) {
+        let tempUnixTime = element.dt;
+        let tempDateTime = new Date(tempUnixTime * 1000);
+        let dayOfWeek = tempDateTime.toLocaleDateString('en-US', {weekday: "long"});
+        // console.log(dayOfWeek, element.main.temp); // Log all temps for each day
+
+        if (!dayOfWeekOrder.includes(dayOfWeek)) {
+            dayOfWeekOrder.push(dayOfWeek);
+            parsedFutureData[dayOfWeek] = {};
+            parsedFutureData[dayOfWeek].all_weath = [];
+        }
+        if (!parsedFutureData[dayOfWeek].max || element.main.temp > parsedFutureData[dayOfWeek].max) {
+            parsedFutureData[dayOfWeek].max = element.main.temp;
+            parsedFutureData[dayOfWeek].max_weath = element.weather[0].main;
+        }
+        if (!parsedFutureData[dayOfWeek].min || element.main.temp < parsedFutureData[dayOfWeek].min) {
+            parsedFutureData[dayOfWeek].min = element.main.temp;
+            parsedFutureData[dayOfWeek].min_weath = element.weather[0].main;
+        }
+        if (!parsedFutureData[dayOfWeek].all_weath.includes(element.weather[0].main)) {
+            parsedFutureData[dayOfWeek].all_weath.push(element.weather[0].main);
+        }
+    }
+    console.log(dayOfWeekOrder);
+    console.log(parsedFutureData);
+}
+
+function SetFutureData() {
+
+}
+
 searchBtn.addEventListener('click', async function() {
     let input = searchBar.value;
+    if (input === '') {
+        console.warn('Empty input');
+        return;
+    }
+    searchBar.value = '';
     console.log('Search input: ' + input);
     let inputSplit = input.split(',');
     if (inputSplit.length === 1) {
@@ -136,24 +198,13 @@ searchBtn.addEventListener('click', async function() {
     console.log({chosenCityData});
     await GetNowData();
     SetNowData();
-    searchBar.value = '';
+
+    await GetFutureData();
+    ParseFutureData();
 });
 
-async function GetFutureData(latitude = lat, longitude = lon) {
-    let weatherFutureApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`
-    fetch(apiUrl).then(
-        response => response.json()
-    ).then(
-        data => {
-            console.log(data);
-            console.log(data.list[0]);
-            console.log(data.list[0].dt);
-            console.log(data.list[0].dt_text);
-            console.log(data.list[0].main.temp);
-        }
-    )
-}
+
 
 
 // Call Functions on page load
-navigator.geolocation.getCurrentPosition(success, error, options);
+// navigator.geolocation.getCurrentPosition(success, error, options);

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./css/style.css">
   </head>
 
-  <body>
+  <body id="body">
 
     <div class="d-flex">
 
@@ -37,21 +37,21 @@
                 <div class="col-4">
                     <h2>Currently</h2>
                     <div class="d-flex">
-                        <h1 id="nowTemp">98</h1>
+                        <h1 id="nowTemp">--</h1>
                         <p id="super">F</p>
                     </div>
                 </div>
                 <div id="rightNowCol" class="col">
                     <button id="addFavBtn" type="button" class="btn btn-dark">Add City to Favorites</button>
-                    <h1 id="cityName">Santa Rosa, CA</h1>
+                    <h1 id="cityName">Locating...</h1>
                     <div class="row mx-0 g-0">
                         <div class="col-4 d-flex">
                             <img id="nowIcon" src="./assets/Clear.png" alt="">
                             <h3 id="nowWeathText">Sunny</h3>
                         </div>
                         <div class="col-8 text-righty">
-                            <h3 id="timeTxt" class="dateTime">2:30pm</h3>
-                            <h3 id="dateTxt" class="dateTime">January 23, 2023</h3>
+                            <h3 id="timeTxt" class="dateTime">12:00am</h3>
+                            <h3 id="dateTxt" class="dateTime">January 1, 1920</h3>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
             <div id="todayRow" class="row text-center">
                 <div id="mornCol" class="col px-0 d-flex justify-content-center">
                     <div id="mornCard" class="d-flex flex-column align-items-center">
-                        <h3 class="todaySubTitle">Morning</h3>
+                        <h3 class="todaySubTitle">High</h3>
                         <div class="todayWeathBox d-flex">
                             <img src="./assets/sunnyIcon.png" alt="" class="todayIcons">
                             <p class="todayWeathText">Sunny</p>
@@ -117,7 +117,7 @@
                 </div>
                 <div id="noonCol" class="col px-0 d-flex justify-content-center">
                     <div id="noonCard" class="d-flex flex-column align-items-center">
-                        <h3 class="todaySubTitle">Noon</h3>
+                        <h3 class="todaySubTitle">Low</h3>
                         <div class="todayWeathBox d-flex ">
                             <img src="./assets/Clear.png" alt="" class="todayIcons">
                             <p class="todayWeathText">Sunny</p>
@@ -130,7 +130,7 @@
                 </div>
                 <div id="eveCol" class="col px-0 d-flex justify-content-center">
                     <div id="eveCard" class="d-flex flex-column align-items-center">
-                        <h3 class="todaySubTitle">Evening</h3>
+                        <h3 class="todaySubTitle">In 5 Hours</h3>
                         <div class="todayWeathBox d-flex ">
                             <img src="./assets/sunnyIcon.png" alt="" class="todayIcons">
                             <p class="todayWeathText">Sunny</p>
