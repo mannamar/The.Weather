@@ -247,3 +247,8 @@ p {
 .todayTempBoxes {
     padding-top: 8px;
 }
+
+.ph-magnifying-glass {
+    font-size: 25px;
+    margin-top: -7px;
+}

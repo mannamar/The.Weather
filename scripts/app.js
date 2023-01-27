@@ -98,10 +98,10 @@ function SetNowData(data = weatherNowData) {
     // }
 
     // Also change BG
-    if (data.weather[0].main === 'Rain' || data.weather[0].main === 'Snow' || data.weather[0].main === 'Clouds') {
+    if (data.weather[0].main === 'Rain' || data.weather[0].main === 'Snow' || data.weather[0].main === 'Clear') {
         body.style.backgroundImage = `url('../assets/${data.weather[0].main}BG.jpg')`;
     } else {
-        body.style.backgroundImage = `url('../assets/ClearBG.jpg')`;
+        body.style.backgroundImage = `url('../assets/CloudsBG.jpg')`;
     }
 }
 
@@ -130,6 +130,10 @@ function ChooseLocation(data = allLocationData) {
     }
     lat = chosenCityData.lat;
     lon = chosenCityData.lon;
+    SetDisplayNameVariables();
+}
+
+function SetDisplayNameVariables() {
     if (chosenCityData.local_names && chosenCityData.local_names.en) {
         name = chosenCityData.local_names.en;
     } else {
@@ -241,16 +245,7 @@ function CreateElements() {
             console.log(chosenCityData);
             lat = chosenCityData.lat;
             lon = chosenCityData.lon;
-            if (chosenCityData.local_names && chosenCityData.local_names.en) {
-                name = chosenCityData.local_names.en;
-            } else {
-                name = chosenCityData.name;
-            }
-            if (chosenCityData.country === 'US' && chosenCityData.state) {
-                state = chosenCityData.state;
-            } else {
-                state = chosenCityData.country;
-            }
+            SetDisplayNameVariables();
             await GetNowData();
             SetNowData();
             await GetFutureData();
