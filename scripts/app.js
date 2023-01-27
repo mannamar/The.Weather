@@ -16,8 +16,8 @@ let searchBtn = document.getElementById('searchBtn');
 let searchBar = document.getElementById('searchBar');
 
 // Declare JS variables
-let weatherNowData, weatherFutureData, allLocationData, cityLocationData;
-let lat, lon, name;
+let weatherNowData, weatherFutureData, allLocationData, chosenCityData;
+let lat, lon, name, state;
 
 
 
@@ -56,8 +56,21 @@ async function GetNowData(latitude = lat, longitude = lon) {
 }
 
 function SetNowData(data = weatherNowData) {
-    cityName.innerText = name;
+
+    if (state) {
+        cityName.innerText = name + ', ' + state;
+    } else {
+        cityName.innerText = name;
+    }
     nowTemp.innerText = Math.round(data.main.temp);
+    nowWeathText.innerText = data.weather[0].main;
+
+    let unixTime = data.dt;
+    let dateTime = new Date(unixTime * 1000);
+    let time = dateTime.toLocaleTimeString('en-US', {timeStyle: 'short'}).toLowerCase().split(' ').join('');
+    let date = dateTime.toLocaleDateString('en-US', {month:"long", day: "numeric", year:"numeric"});
+    timeTxt.innerText = time;
+    dateTxt.innerText = date;
 }
 
 function SetFiveDayData() {
@@ -78,20 +91,26 @@ async function SearchForLocation(cityName, stateCode = '', countryCode = '', lim
 
 function ChooseLocation(data = allLocationData) {
     // console.log(data);
-    let returnIndex;
+    chosenCityData = data[0];
     for (let i = 0; i < data.length; i++) {
         // console.log(data[i].country)
         if (data[i].country === 'US') {
             // console.log(data[i]);
-            lat = data[i].lat;
-            lon = data[i].lon;
-            if (data[i].local_names) {
-                name = data[i].local_names.en;
-            } else {
-                name = data[i].name;
-            }
-            return data[i];
+            chosenCityData = data[i];
+            break;
         }
+    }
+    lat = chosenCityData.lat;
+    lon = chosenCityData.lon;
+    if (chosenCityData.local_names && chosenCityData.local_names.en) {
+        name = chosenCityData.local_names.en;
+    } else {
+        name = chosenCityData.name;
+    }
+    if (chosenCityData.country === 'US' && chosenCityData.state) {
+        state = chosenCityData.state;
+    } else {
+        state = chosenCityData.country;
     }
 }
 
@@ -104,8 +123,8 @@ searchBtn.addEventListener('click', async function() {
     } else {
         await SearchForLocation(inputSplit[0], inputSplit[1]);
     }
-    cityLocationData = await ChooseLocation();
-    console.log({cityLocationData});
+    ChooseLocation();
+    console.log({chosenCityData});
     await GetNowData();
     SetNowData();
     searchBar.value = '';
