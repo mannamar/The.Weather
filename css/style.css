@@ -265,3 +265,9 @@ p {
 #xBtn {
     margin-top: -55px;
 }
+
+#offcanvasExample {
+    background-image: url('../assets/offCanvasBG3.jpeg');
+    background-size: auto;
+    background-repeat: repeat;
+}
