@@ -325,6 +325,7 @@ searchBtn.addEventListener('click', async function() {
     }
     searchBar.value = '';
     cityList.innerHTML = '';
+    awesomeplete.list = [];
     console.log('Search input: ' + input);
     let inputSplit = input.split(',');
     if (inputSplit.length === 1) {
@@ -352,6 +353,7 @@ document.addEventListener('keypress', async function(key) {
         }
         searchBar.value = '';
         cityList.innerHTML = '';
+        awesomeplete.list = [];
         console.log('Search input: ' + input);
         let inputSplit = input.split(',');
         if (inputSplit.length === 1) {
@@ -413,12 +415,13 @@ document.addEventListener('keypress', async function(key) {
 });
 
 function PopulateAutofill(array) {
-    cityList.innerHTML = '';
-    for (const item of array) {
-        let newOption = document.createElement('option');
-        newOption.innerText = item;
-        cityList.append(newOption);
-    }
+    // cityList.innerHTML = '';
+    // for (const item of array) {
+    //     let newOption = document.createElement('option');
+    //     newOption.innerText = item;
+    //     cityList.append(newOption);
+    // }
+    awesomeplete.list = array;
 }
 
 addFavBtn.addEventListener('click', function() {
@@ -435,3 +438,10 @@ favLink.addEventListener('click', function() {
 navigator.geolocation.getCurrentPosition(success, error, options);
 
 let favorites = getLocalStorage();
+
+// Awesomeplete for autofill styling
+var awesomeplete = new Awesomplete(searchBar, {
+    list: document.querySelector("#cityList")
+});
+
+awesomeplete.sort = false; // Don't sort
