@@ -77,7 +77,12 @@
         <div id="rightBox" class="container-fluid">
 
             <div id="searchBox" class="d-flex justify-content-end">
-                <input id="searchBar" class="form-control" type="text" placeholder="search city" aria-label="Search">
+                <input id="searchBar" list="cityList" class="form-control" type="text" placeholder="search city" aria-label="Search" autocomplete="off">
+                <datalist id="cityList">
+                    <!-- <option>Lodi</option>
+                    <option>Lodi, IT</option>
+                    <option>Lodi, CA, US</option> -->
+                </datalist>
                 <button id="searchBtn" class="btn" type="submit"><i class="ph-magnifying-glass"></i></button>
             </div>
 

@@ -324,6 +324,7 @@ searchBtn.addEventListener('click', async function() {
         return;
     }
     searchBar.value = '';
+    cityList.innerHTML = '';
     console.log('Search input: ' + input);
     let inputSplit = input.split(',');
     if (inputSplit.length === 1) {
@@ -350,6 +351,7 @@ document.addEventListener('keypress', async function(key) {
             return;
         }
         searchBar.value = '';
+        cityList.innerHTML = '';
         console.log('Search input: ' + input);
         let inputSplit = input.split(',');
         if (inputSplit.length === 1) {
@@ -382,7 +384,7 @@ document.addEventListener('keypress', async function(key) {
             await SearchForLocation(inputSplit[0], inputSplit[1]);
         }
         for (let i = 0; i < allLocationData.length; i++) {
-            let city, tempName, tempState;
+            let city, tempName, tempState, tempCountry;
             let cityData = allLocationData[i];
             // console.log({cityData});
             if (cityData.local_names && cityData.local_names.en) {
@@ -390,22 +392,34 @@ document.addEventListener('keypress', async function(key) {
             } else {
                 tempName = cityData.name;
             }
+            tempState = cityData.state;
+            tempCountry = cityData.country;
             if (cityData.country === 'US' && cityData.state) {
-                tempState = cityData.state;
+                if (stateAbbr[tempState]) {
+                    tempState = stateAbbr[tempState];
+                }
+                city = tempName + ', ' + tempState + ', US';
             } else {
-                tempState = cityData.country;
+                city = tempName + ', ' + tempCountry;
             }
-            if (stateAbbr[tempState]) {
-                city = tempName + ', ' + stateAbbr[tempState];
-            } else {
-                city = tempName + ', ' + tempState;
+            if (!cities.includes(city)) {
+                cities.push(city);
+                console.log(city);
             }
-            console.log(city);
-            cities.push(city);
         }
         console.log(cities);
+        PopulateAutofill(cities);
     }
 });
+
+function PopulateAutofill(array) {
+    cityList.innerHTML = '';
+    for (const item of array) {
+        let newOption = document.createElement('option');
+        newOption.innerText = item;
+        cityList.append(newOption);
+    }
+}
 
 addFavBtn.addEventListener('click', function() {
     console.log("Add to fav: " + name);
@@ -418,6 +432,6 @@ favLink.addEventListener('click', function() {
 
 
 // Call Functions on page load
-// navigator.geolocation.getCurrentPosition(success, error, options);
+navigator.geolocation.getCurrentPosition(success, error, options);
 
 let favorites = getLocalStorage();
