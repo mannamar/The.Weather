@@ -316,7 +316,7 @@ function CreateElements() {
     })
 }
 
-// Button event listeners
+// Search on button click
 searchBtn.addEventListener('click', async function() {
     let input = searchBar.value;
     if (input === '') {
@@ -341,6 +341,7 @@ searchBtn.addEventListener('click', async function() {
     SetFutureData();
 });
 
+// Submit search on 'Enter'
 document.addEventListener('keypress', async function(key) {
     if (key.key === 'Enter') {
         let input = searchBar.value;
@@ -367,6 +368,45 @@ document.addEventListener('keypress', async function(key) {
     }
 });
 
+// Auto-populate search results
+document.addEventListener('keypress', async function(key) {
+    console.warn('Starting autofill');
+    let input = searchBar.value + key.key;
+    if (input.length > 3 && key.key !== 'Enter') {
+        console.log('Autofill input: ' + input);
+        let cities = [];
+        let inputSplit = input.split(',');
+        if (inputSplit.length === 1) {
+            await SearchForLocation(inputSplit[0]);
+        } else {
+            await SearchForLocation(inputSplit[0], inputSplit[1]);
+        }
+        for (let i = 0; i < allLocationData.length; i++) {
+            let city, tempName, tempState;
+            let cityData = allLocationData[i];
+            // console.log({cityData});
+            if (cityData.local_names && cityData.local_names.en) {
+                tempName = cityData.local_names.en;
+            } else {
+                tempName = cityData.name;
+            }
+            if (cityData.country === 'US' && cityData.state) {
+                tempState = cityData.state;
+            } else {
+                tempState = cityData.country;
+            }
+            if (stateAbbr[tempState]) {
+                city = tempName + ', ' + stateAbbr[tempState];
+            } else {
+                city = tempName + ', ' + tempState;
+            }
+            console.log(city);
+            cities.push(city);
+        }
+        console.log(cities);
+    }
+});
+
 addFavBtn.addEventListener('click', function() {
     console.log("Add to fav: " + name);
     saveToLocalStorage(chosenCityData);
@@ -378,6 +418,6 @@ favLink.addEventListener('click', function() {
 
 
 // Call Functions on page load
-navigator.geolocation.getCurrentPosition(success, error, options);
+// navigator.geolocation.getCurrentPosition(success, error, options);
 
 let favorites = getLocalStorage();
