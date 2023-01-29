@@ -290,6 +290,7 @@ function CreateElements() {
         // All of the above were copy/pasted from other functions --> room to refactor
         // favBtn.textContent = tempName + ', ' + tempState;
         favBtn.classList.add('btn', 'btn-primary', 'favItem');
+        favBtn.setAttribute('data-bs-dismiss', 'offcanvas');
         favBtn.addEventListener('click', async function() {
             chosenCityData = favorites[favorites.indexOf(favItem)];
             console.log(chosenCityData);
