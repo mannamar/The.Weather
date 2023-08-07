@@ -5,7 +5,6 @@ import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "/sc
 
 // let apiKey = process.env.API_KEY;
 let apiKey = '';
-console.log(apiKey);
 
 if (prod.isLive) {
     apiKey += prod.apiKey;
