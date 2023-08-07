@@ -3,13 +3,13 @@ import { prod, dev } from './environment.js';
 import { stateAbbr } from './states.js';
 import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "./localStorage.js";
 
-let apiKey = '';
+let apiKey = process.env.API_KEY;
 
-if (prod.isLive) {
-    apiKey += prod.apiKey;
-} else {
-    apiKey += dev.apiKey;
-}
+// if (prod.isLive) {
+//     apiKey += prod.apiKey;
+// } else {
+//     apiKey += dev.apiKey;
+// }
 
 // Declare element variables
 let nowTemp = document.getElementById('nowTemp');
