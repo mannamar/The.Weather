@@ -1,9 +1,10 @@
 // Imports
 // import { prod, dev } from './environment.js';
-import { stateAbbr } from './states.js';
-import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "./localStorage.js";
+import { stateAbbr } from '/scripts/states.js';
+import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "/scripts/localstorage.js";
 
 let apiKey = process.env.API_KEY;
+// let apiKey = '56f305c5100fcf8fededa1a56848c62d';
 console.log(apiKey);
 
 // if (prod.isLive) {
