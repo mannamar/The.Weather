@@ -4,6 +4,7 @@ import { stateAbbr } from './states.js';
 import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "./localStorage.js";
 
 let apiKey = process.env.API_KEY;
+console.log(apiKey);
 
 // if (prod.isLive) {
 //     apiKey += prod.apiKey;
