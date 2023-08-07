@@ -1,5 +1,5 @@
 // Imports
-import { prod, dev } from './environment.js';
+import { prod, dev } from '/scripts/environment.js';
 import { stateAbbr } from '/scripts/states.js';
 import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "/scripts/localstorage.js";
 
@@ -7,11 +7,11 @@ import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "/sc
 let apiKey = '';
 console.log(apiKey);
 
-// if (prod.isLive) {
-//     apiKey += prod.apiKey;
-// } else {
-//     apiKey += dev.apiKey;
-// }
+if (prod.isLive) {
+    apiKey += prod.apiKey;
+} else {
+    apiKey += dev.apiKey;
+}
 
 // Declare element variables
 let nowTemp = document.getElementById('nowTemp');
