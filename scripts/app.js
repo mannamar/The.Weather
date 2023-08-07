@@ -1,5 +1,5 @@
 // Imports
-import { prod, dev } from './environment.js';
+// import { prod, dev } from './environment.js';
 import { stateAbbr } from './states.js';
 import { saveToLocalStorage, getLocalStorage, removeFromLocalStorage } from "./localStorage.js";
 
